@@ -17,7 +17,6 @@ export default class RespostaModel {
     return new RespostaModel(valor, false);
   }
 
-
   get valor() {
     return this._valor;
   }
