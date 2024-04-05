@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import questoes from '../bancoDeQuestoes';
+import { embaralhar } from '@/functions/arrays';
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  const filtradas = questoes.map(questao => questao.id);
+  const ids = questoes.map(questao => questao.id);
 
-  filtradas.sort(() => Math.random() - 0.5);
-
-  res.status(200).json(filtradas)
+  res.status(200).json(embaralhar(ids))
 }
 
 export default handler;

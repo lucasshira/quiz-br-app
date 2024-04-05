@@ -29,6 +29,10 @@ export default class RespostaModel {
     return this._revelada;
   }
 
+  revelar() {
+    return new RespostaModel(this._valor, this._certa, true);
+  }
+
   paraObjeto() {
     return {
       valor: this._valor,
