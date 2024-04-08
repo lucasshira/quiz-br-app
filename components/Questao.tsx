@@ -12,6 +12,7 @@ const letras = [
 
 interface QuestaoProps {
   valor: QuestaoModel
+  respostaFornecida: (indice: number) => void
 }
 
 const Questao = (props: QuestaoProps) => {
@@ -25,6 +26,7 @@ const Questao = (props: QuestaoProps) => {
           indice={i}
           letra={letras[i].valor}
           corFundoLetra={letras[i].cor}
+          respostaFornecida={props.respostaFornecida}
         />
       )
     })
