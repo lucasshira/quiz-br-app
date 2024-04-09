@@ -17,6 +17,12 @@ const Home = () => {
     setQuestao(questao.responderCom(indice));
   }
 
+  function tempoEsgotado() {
+    if (questao.naoRespondida) {
+      setQuestao(questao.responderCom(-1));
+    }
+  }
+
   return (
     <div style={{
       display: "flex",
@@ -24,7 +30,10 @@ const Home = () => {
       justifyContent: "center",
       alignItems: "center"
     }}>
-      <Questao valor={questao} respostaFornecida={respostaFornecida} />
+      <Questao valor={questao} 
+        respostaFornecida={respostaFornecida} 
+        tempoEsgotado={tempoEsgotado}
+      />
     </div>
   );
 }
