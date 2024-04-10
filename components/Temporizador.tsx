@@ -15,7 +15,7 @@ const Temporizador = (props: TemporizadorProps) => {
         isPlaying
         onComplete={props.tempoEsgotado}
         colors={['#BCE596', '#F7B801', '#F94538']}
-        colorsTime={[10,3,0]}
+        colorsTime={[10, 4, 0]}
       >
         {({ remainingTime }) => remainingTime}
       </CountdownCircleTimer>
