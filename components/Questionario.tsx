@@ -32,5 +32,5 @@ const Questionario = (props: QuestionarioProps) => {
     </div>
   );
 }
- 
+
 export default Questionario;

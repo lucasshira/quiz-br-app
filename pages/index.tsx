@@ -1,17 +1,41 @@
 import Questionario from "@/components/Questionario";
 import QuestaoModel from "@/model/questao";
 import RespostaModel from "@/model/resposta";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const questaoMock = new QuestaoModel(1, 'Qual a melhor cor?', [
   RespostaModel.errada('Vermelha'),
   RespostaModel.errada('Preto'),
   RespostaModel.errada('Azul'),
   RespostaModel.certa('Verde'),
-])
+]);
+
+const BASE_URL = 'http://localhost:3000/api';
 
 const Home = () => {
-  const [questao, setQuestao] = useState(questaoMock);
+  const [ids, setIds] = useState<number[]>([]);
+  const [questao, setQuestao] = useState<QuestaoModel>(questaoMock);
+
+  async function carregarIdsDasQuestoes() {
+    const resp = await fetch(`${BASE_URL}/questionario`);
+    const ids = await resp.json();
+    console.log(ids);
+    setIds(ids);
+  }
+
+  async function carregarQuestao(idQuestao: number) {
+    const resp = await fetch(`${BASE_URL}/questoes/${idQuestao}`);
+    const json = await resp.json();
+    console.log(json)
+  }
+
+  useEffect(() => {
+    carregarIdsDasQuestoes();
+  }, []);
+
+  useEffect(() => {
+    ids.length > 0 && carregarQuestao(ids[0]);
+  }, [ids]);
 
   function questaoRespondida(questa: QuestaoModel) {
   }
@@ -20,20 +44,12 @@ const Home = () => {
   }
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      justifyContent: "center",
-      alignItems: "center"
-    }}>
-      <Questionario 
-        questao={questao}
-        ultima={false}
-        questaoRespondida={questaoRespondida}
-        irPraProximoPasso={irPraProximoPasso}
-      />
-    </div>
+    <Questionario 
+      questao={questao}
+      ultima={false}
+      questaoRespondida={questaoRespondida}
+      irPraProximoPasso={irPraProximoPasso}
+    />
   );
 }
  
