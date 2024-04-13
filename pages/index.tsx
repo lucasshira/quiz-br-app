@@ -15,18 +15,19 @@ const BASE_URL = 'http://localhost:3000/api';
 const Home = () => {
   const [ids, setIds] = useState<number[]>([]);
   const [questao, setQuestao] = useState<QuestaoModel>(questaoMock);
+  const [respostasCertas, setRespostasCertas] = useState<number>(0);
 
   async function carregarIdsDasQuestoes() {
     const resp = await fetch(`${BASE_URL}/questionario`);
     const ids = await resp.json();
-    console.log(ids);
     setIds(ids);
   }
 
   async function carregarQuestao(idQuestao: number) {
     const resp = await fetch(`${BASE_URL}/questoes/${idQuestao}`);
     const json = await resp.json();
-    console.log(json)
+    const novaQuestao = QuestaoModel.criarUsandoObjeto(json);
+    setQuestao(novaQuestao);
   }
 
   useEffect(() => {
@@ -37,11 +38,13 @@ const Home = () => {
     ids.length > 0 && carregarQuestao(ids[0]);
   }, [ids]);
 
-  function questaoRespondida(questa: QuestaoModel) {
+  function questaoRespondida(questaoRespondida: QuestaoModel) {
+    setQuestao(questaoRespondida);
+    const acertou = questaoRespondida.acertou
+    setRespostasCertas(respostasCertas + (acertou ? 1 : 0));
   }
 
-  function irPraProximoPasso() {
-  }
+  function irPraProximoPasso() {}
 
   return (
     <Questionario 
