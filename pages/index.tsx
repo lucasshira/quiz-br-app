@@ -40,7 +40,7 @@ const Home = () => {
   }
 
   function idProximaPergunta() {
-      const proximoIndice = ids.indexOf(questao.id) + 1;
+      const proximoIndice = ids.indexOf(questao?.id || -1) + 1;
       return ids[proximoIndice];
   }
 
